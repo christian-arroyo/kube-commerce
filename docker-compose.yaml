@@ -1,12 +1,14 @@
 services:
   api:
-    build: .
+    build: 
+      context: .
+      dockerfile: apps/checkout_api/Dockerfile
     ports:
     - "8000:8000"
   db:
     image: postgres:17
     environment:
-      POSTGRES_USER: appuser
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: salesdb
     ports:

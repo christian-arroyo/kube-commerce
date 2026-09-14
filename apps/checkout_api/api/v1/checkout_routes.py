@@ -1,10 +1,9 @@
 """This module contains the routes for the checkout API"""
 
-from fastapi import APIRouter, Body, HTTPException
+from fastapi import APIRouter, Body
 
-from app.db.db import get_database
-from app.models.checkout import CheckoutRequestModel, CheckoutResponseModel
-from app.services.checkout import CheckoutService
+from apps.checkout_api.models.checkout import CheckoutRequestModel, CheckoutResponseModel
+from apps.checkout_api.services.checkout import CheckoutService
 
 router = APIRouter()
 

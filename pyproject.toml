@@ -13,7 +13,7 @@ dependencies = [
 authors = {name = "Christian Arroyo"}
 
 [tool.fastapi]
-entrypoint = "app.main:app"
+entrypoint = "apps.checkout_api.main:app"
 
 [tool.pytest.ini_options]
 pythonpath = "."

@@ -10,6 +10,11 @@ class CheckoutResponseModel(BaseModel):
     tax: Decimal
     total: Decimal 
 
+class ItemModel(BaseModel):
+    item_number: int
+    price: Decimal
+    description: str
+
 # Request body when creating a checkout
 class CheckoutRequestModel(BaseModel):
     user_id: str
@@ -21,8 +26,3 @@ class CheckoutStatusEnum(str, Enum):
     PENDING = "PENDING"
     COMPLETED = "COMPLETED"
     CANCELLED = "CANCELLED"
-
-class ItemModel(BaseModel):
-    item_number: int
-    price: Decimal
-    description: str

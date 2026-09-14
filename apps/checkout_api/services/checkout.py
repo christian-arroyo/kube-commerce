@@ -1,10 +1,11 @@
 """ This module contains the business logic for the CheckoutService class"""
 
 from decimal import Decimal, ROUND_HALF_UP
+import uuid
 from fastapi import HTTPException
 
-from app.db.db import get_database
-from app.models.checkout import CheckoutRequestModel, CheckoutResponseModel, CheckoutStatusEnum
+from apps.checkout_api.db.db import get_database
+from apps.checkout_api.models.checkout import CheckoutRequestModel, CheckoutResponseModel, CheckoutStatusEnum
 
 class CheckoutService:
     def __init__(self):
@@ -23,12 +24,13 @@ class CheckoutService:
         checkout.status = status
         return checkout
 
-    def _generate_checkout_id(self, data: dict) -> str:
-        id = "checkout-" + str(len(data))
+    def _generate_checkout_id(self) -> str:
+        checkout_id = str(uuid.uuid4())
+        id = "checkout-" + checkout_id
         return id
 
     def create_checkout(self, request: CheckoutRequestModel) -> CheckoutResponseModel:
-        checkout_id = self._generate_checkout_id(get_database())
+        checkout_id = self._generate_checkout_id()
         total = self._calculate_order_total(request.subtotal, request.tax_rate)
         tax = self._calculate_tax_total(request.subtotal, request.tax_rate)
         # Save data in repository

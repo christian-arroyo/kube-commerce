@@ -8,7 +8,12 @@ dependencies = [
     "pydantic>=2.13.4",
     "pytest>=9.1.1",
     "uvicorn>=0.52.4",
-    "httpx2"
+    "httpx2",
+    "sqlmodel>=0.0.42",
+    "sqlalchemy",
+    "python-dotenv>=1.2.3",
+    "pydantic-settings>=2.15.0",
+    "psycopg2-binary"
 ]
 authors = {name = "Christian Arroyo"}
 

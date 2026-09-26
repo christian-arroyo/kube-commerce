@@ -1,6 +1,6 @@
 """This module contains the routes for the checkout API"""
 
-from fastapi import APIRouter, Body, Depends
+from fastapi import APIRouter, Body, Depends, Header
 
 from apps.checkout_api.db.schema import SessionLocal
 from apps.checkout_api.models.checkout_model import CheckoutRequestModel, CheckoutResponseModel
@@ -13,8 +13,9 @@ def get_checkout_service() -> CheckoutService:
 
 # POST /api/v1/checkouts -- Create a checkout in PENDING status
 @router.post("/checkout", response_model=CheckoutResponseModel)
-async def create_checkout(checkout: CheckoutRequestModel, service: CheckoutService = Depends(get_checkout_service)):
-    return service.create_checkout(checkout)
+async def create_checkout(checkout: CheckoutRequestModel, idempotency_key: str = Header(..., alias="Idempotency-Key"), 
+                          service: CheckoutService = Depends(get_checkout_service)):
+    return service.create_checkout(checkout, idempotency_key)
 
 # Get checkout object by ID
 @router.get("/checkout/{checkout_id}", response_model=CheckoutResponseModel)

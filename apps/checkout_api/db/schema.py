@@ -1,7 +1,8 @@
 from decimal import Decimal
+from datetime import datetime
 
 from fastapi import Depends, FastAPI, HTTPException, Query
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, DateTime, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
 
 from apps.checkout_api.core.config import config
@@ -26,3 +27,12 @@ class Checkout(Base):
     tax_rate: Mapped[Decimal] = mapped_column(nullable=False)
     total: Mapped[Decimal] = mapped_column(nullable=False)
     user_id: Mapped[str] = mapped_column(nullable=False)
+
+
+class IdempotencyKey(Base):
+    __tablename__ = "idempotency_keys"
+
+    key: Mapped[str] = mapped_column(primary_key=True)
+    body_hash: Mapped[str] = mapped_column(nullable=False)
+    checkout_id: Mapped[str] = mapped_column(nullable=False)
+    created_at: Mapped[datetime] = mapped_column(server_default=func.now())

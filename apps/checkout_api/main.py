@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from apps.checkout_api.core.logging import setup_logging
-from apps.checkout_api.api.v1 import checkout_routes
+from apps.checkout_api.api.v1 import checkout_routes, health_routes
 from apps.checkout_api.db.schema import Base, engine
 
 setup_logging()
@@ -11,3 +11,4 @@ app = FastAPI()
 
 # Register routes
 app.include_router(checkout_routes.router)
+app.include_router(health_routes.router)

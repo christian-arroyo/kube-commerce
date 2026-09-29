@@ -14,7 +14,7 @@ def get_health():
 
 
 # Kubernetes readiness check
-@router.get("/ready")
+@router.get("/readyz")
 def get_ready():
     session = SessionLocal()
     try:

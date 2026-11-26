@@ -6,6 +6,20 @@ The platform is containerized with Docker and deployed to Kubernetes with Helm. 
 
 To test the functionality of each of the components, and to practice monitoring, alerting, and troubleshooting, I induce controlled failures. Failures consist of database outages, payment errors, increased latency, CPU saturation, and queue backlogs.
 
+# Technology Stack
+
+- FastAPI (Python)
+- Postgres
+- Docker
+- Kubernetes
+- Terraform
+- Prometheus
+- Grafana
+
+# Install
+
+# Usage
+
 # Lessons Learned
 
-- Idempotency in FastAPI. If a client loses connection before receiving a response, it can resend the exact same request with the same key. This could have unwanted results. Added a required idempotency key as part of the create checkout header
+- Idempotency in FastAPI. If a client loses connection before receiving a response, it can resend the exact same request with the same key. This could have unwanted results. I added a required idempotency key as part of the create checkout header

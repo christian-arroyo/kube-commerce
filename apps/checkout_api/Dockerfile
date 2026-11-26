@@ -9,16 +9,20 @@ ENV UV_COMPILE_BYTECODE=1
 ENV UV_NO_DEV=1
 
 USER root
+# Install dependencies
 RUN apt-get update && apt-get install -y procps && rm -rf /var/lib/apt/lists/*
+# Create fastapigroup with guid 1000
 RUN groupadd -g 1000 fastapigroup 
+# Create user fastapiuser and make it part of fastapigroup
 RUN useradd -m -u 1000 -g fastapigroup fastapiuser
+
 # Install application
 WORKDIR /app
 RUN chown -R fastapiuser:fastapigroup /app
 USER fastapiuser
 COPY --chown=fastapiuser:fastapigroup pyproject.toml uv.lock* /app/
 # Install dependencies
-RUN uv sync --locked
 COPY --chown=fastapiuser:fastapigroup . /app
+RUN uv sync --locked
 # Run the application using uvicorn
 CMD ["uv", "run", "uvicorn", "apps.checkout_api.main:app", "--host", "0.0.0.0", "--port", "8000"]

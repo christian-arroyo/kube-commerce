@@ -28,7 +28,6 @@ class CheckoutResponseModel(BaseModel):
     total: Decimal 
 
 
-
 class CheckoutStatusEnum(str, Enum):
     PENDING = "PENDING"
     COMPLETED = "COMPLETED"
